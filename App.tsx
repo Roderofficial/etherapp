@@ -11,6 +11,8 @@ import {SafeAreaView, Text} from 'react-native';
 import Profile from './src/pages/Profile';
 import TestHome from './src/pages/TestHome';
 import WelcomeAuth from './src/pages/auth/welcome';
+import LoginEmail from './src/pages/auth/login/Email';
+import LoginCode from './src/pages/auth/login/Code';
 
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -33,6 +35,8 @@ function App(): JSX.Element {
         <Stack.Screen name="TestHome" component={TestHome} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="WelcomeAuth" component={WelcomeAuth} />
+        <Stack.Screen name="LoginEmail" component={LoginEmail} />
+        <Stack.Screen name="LoginCode" component={LoginCode} />
       </Stack.Navigator>
     </NavigationContainer>
   );

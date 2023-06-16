@@ -3,7 +3,7 @@ import {Dimensions, StyleSheet, Button, Pressable} from 'react-native';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
-import profileService from '../../api/profileService';
+import profileService from '../../api/user/profileService';
 
 import {Image, Text, View} from 'react-native';
 

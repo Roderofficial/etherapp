@@ -1,4 +1,4 @@
-export function getAvatarSource(avatar) {
+export function getAvatarSource(avatar: string | null | undefined) {
   if (avatar) {
     return {uri: avatar};
   }

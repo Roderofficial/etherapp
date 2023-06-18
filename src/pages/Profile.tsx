@@ -8,7 +8,7 @@ const Profile = (): JSX.Element => {
   return (
     <ScrollView bounces={false}>
       <Header userId="6488bc17c64d44befbbf3dc8" />
-      <FriendsList />
+      <FriendsList userId="6488bc17c64d44befbbf3dc8" />
       <Post />
     </ScrollView>
   );

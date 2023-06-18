@@ -13,6 +13,8 @@ import TestHome from './src/pages/TestHome';
 import WelcomeAuth from './src/pages/auth/welcome';
 import LoginEmail from './src/pages/auth/login/Email';
 import LoginCode from './src/pages/auth/login/Code';
+import Tabs from './src/components/tabs';
+import FriendsRequests from './src/pages/notifications/FriendsRequests';
 
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -32,7 +34,8 @@ function App(): JSX.Element {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="TestHome" component={TestHome} />
+        <Stack.Screen name="Tabs" component={Tabs} />
+        <Stack.Screen name="FriendsRequests" component={FriendsRequests} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="WelcomeAuth" component={WelcomeAuth} />
         <Stack.Screen name="LoginEmail" component={LoginEmail} />

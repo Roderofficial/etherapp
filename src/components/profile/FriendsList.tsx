@@ -2,20 +2,50 @@ import React from 'react';
 import {Text, View, Image} from 'react-native';
 import {StyleSheet} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import friendshipService from '../../api/user/friendshipService';
+import {getAvatarSource} from '../../hooks/getAvatarSource';
 
-export default class FriendsList extends React.Component {
+interface Friend {
+  id: string;
+  firstname: string;
+  lastname: string;
+  avatar: string;
+}
+export default class FriendsList extends React.Component<any, any> {
   constructor(props: any | Readonly<{}>) {
     super(props);
+    this.state = {
+      friends: [],
+      userId: this.props.userId,
+      loading: true,
+    };
+  }
+
+  loadFriends = async () => {
+    const response = await friendshipService.getFriends(this.state.userId);
+    const friends = await response.json();
+
+    this.setState({
+      friends,
+      loading: false,
+    });
+  };
+
+  componentDidMount() {
+    this.loadFriends();
   }
 
   render() {
+    if (this.state.loading) {
+      return <Text> Loading</Text>;
+    }
     return (
       <View style={style.card}>
         <Text style={style.card_title}>
           <Text>Znajomi</Text>
           <Text style={{fontSize: 12, color: '#000', paddingLeft: 20}}>
             {' '}
-            (6)
+            ({this.state.friends.length})
           </Text>
         </Text>
 
@@ -26,29 +56,34 @@ export default class FriendsList extends React.Component {
             borderColor: '#F5F5F5',
             borderBottomWidth: 1,
           }}>
-          {firends.map(friend => (
-            <View
-              key={friend.id}
-              style={{
-                width: '33%',
-                height: 100,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Image
-                source={{uri: friend.avatar}}
-                style={{width: 60, height: 60}}
-              />
-              <Text style={{fontSize: 12, marginTop: 10, color: '#000'}}>
-                {friend.firstname} {friend.lastname}
-              </Text>
-            </View>
-          ))}
+          {console.log(JSON.stringify(this.state.friends))}
+          {this.state.friends.length > 0
+            ? this.state.friends.map((friend: any) => (
+                <View
+                  key={friend.id}
+                  style={{
+                    width: '33%',
+                    height: 100,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Image
+                    source={getAvatarSource(friend.avatar)}
+                    style={{width: 60, height: 60}}
+                  />
+                  <Text style={{fontSize: 12, marginTop: 10, color: '#000'}}>
+                    {friend.firstname} {friend.lastname}
+                  </Text>
+                </View>
+              ))
+            : null}
         </View>
-        <Text style={style.showAll}>
-          <Text>Pokaż wszystkich znajomych </Text>
-          <FeatherIcon name="arrow-right" size={17} color="#000" />
-        </Text>
+        {this.state.friends.length > 0 ? (
+          <Text style={style.showAll}>
+            <Text>Pokaż wszystkich znajomych </Text>
+            <FeatherIcon name="arrow-right" size={17} color="#000" />
+          </Text>
+        ) : null}
       </View>
     );
   }

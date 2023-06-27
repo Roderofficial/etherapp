@@ -1,9 +1,11 @@
 import React from 'react';
-import {Text, View, Image} from 'react-native';
+import {Text, View, Image, TouchableOpacity} from 'react-native';
 import {StyleSheet} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import friendshipService from '../../api/user/friendshipService';
 import {getAvatarSource} from '../../hooks/getAvatarSource';
+import {ParamListBase, useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 interface Friend {
   id: string;
@@ -11,6 +13,7 @@ interface Friend {
   lastname: string;
   avatar: string;
 }
+
 export default class FriendsList extends React.Component<any, any> {
   constructor(props: any | Readonly<{}>) {
     super(props);
@@ -22,6 +25,7 @@ export default class FriendsList extends React.Component<any, any> {
   }
 
   loadFriends = async () => {
+    console.log(this.props);
     const response = await friendshipService.getFriends(this.state.userId);
     const friends = await response.json();
 
@@ -55,8 +59,8 @@ export default class FriendsList extends React.Component<any, any> {
             flexWrap: 'wrap',
             borderColor: '#F5F5F5',
             borderBottomWidth: 1,
+            paddingBottom: 10,
           }}>
-          {console.log(JSON.stringify(this.state.friends))}
           {this.state.friends.length > 0
             ? this.state.friends.map((friend: any) => (
                 <View
@@ -67,13 +71,34 @@ export default class FriendsList extends React.Component<any, any> {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <Image
-                    source={getAvatarSource(friend.avatar)}
-                    style={{width: 60, height: 60}}
-                  />
-                  <Text style={{fontSize: 12, marginTop: 10, color: '#000'}}>
-                    {friend.firstname} {friend.lastname}
-                  </Text>
+                  <TouchableOpacity
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                    onPress={() =>
+                      useNavigation<
+                        NativeStackNavigationProp<ParamListBase>
+                      >().navigate('Profile', {
+                        userId: friend.id,
+                      })
+                    }>
+                    <Image
+                      source={getAvatarSource(friend.avatar)}
+                      style={{
+                        width: '100%',
+                        borderRadius: 10,
+                        height: 'auto',
+                        flex: 1,
+                        resizeMode: 'contain',
+                        aspectRatio: 1,
+                        margin: 'auto',
+                      }}
+                    />
+                    <Text style={{fontSize: 12, marginTop: 10, color: '#000'}}>
+                      {friend.firstname} {friend.lastname}
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               ))
             : null}
@@ -109,6 +134,7 @@ const style = StyleSheet.create({
     paddingTop: 20,
     verticalAlign: 'middle',
     textAlignVertical: 'center',
+    marginBottom: 10,
   },
   showAll: {
     fontSize: 17,

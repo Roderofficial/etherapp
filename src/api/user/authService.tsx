@@ -31,6 +31,30 @@ class AuthService {
       console.log(error);
     }
   }
+
+  async logout(): Promise<void> {
+    await fetch(`${API_URL}/auth/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${await EncryptedStorage.getItem('token')}`,
+      },
+    });
+
+    try {
+      await EncryptedStorage.removeItem('token');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async loggedIn(): Promise<boolean> {
+    const token = await EncryptedStorage.getItem('token');
+    if (token) {
+      return true;
+    }
+    return false;
+  }
 }
 
 export default new AuthService();

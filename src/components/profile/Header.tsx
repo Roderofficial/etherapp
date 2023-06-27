@@ -4,16 +4,18 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 import profileService from '../../api/user/profileService';
+import {getAvatarSource} from '../../hooks/getAvatarSource';
+import backgroundSource from '../../hooks/getBackgroundSource';
+import InviteButton from './InviteButton';
 
 import {Image, Text, View} from 'react-native';
 
-const Header = ({background, avatar}: any): JSX.Element => {
+const Header = ({userId}: any): JSX.Element => {
   const [user, setUser] = useState<any>({});
 
   const fetchUser = async () => {
-    const user = await profileService.getUserProfileById(
-      '648ad0a10d69ee45746fe469',
-    );
+    console.log(userId, 'userId');
+    const user = await profileService.getUserProfileById(userId);
     console.log(user);
     setUser(user);
   };
@@ -25,11 +27,16 @@ const Header = ({background, avatar}: any): JSX.Element => {
   return (
     <View>
       <View style={style.card}>
-        <Image source={{uri: user.background}} style={style.background} />
+        <Image
+          source={backgroundSource(user.background)}
+          style={style.background}
+        />
         <View style={style.inside}>
           <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
             <View>
-              <Image source={{uri: user.avatar}} style={style.avatar}></Image>
+              <Image
+                source={getAvatarSource(user.avatar)}
+                style={style.avatar}></Image>
             </View>
             <View>
               {new Date(user.createdAt).getTime() >
@@ -67,10 +74,7 @@ const Header = ({background, avatar}: any): JSX.Element => {
               <FontAwesomeIcon name="comment" size={20} color="#fff" />
               <Text style={style.actionButtonText}>Wiadomość</Text>
             </Pressable>
-            <Pressable onPress={() => null} style={style.actionButton}>
-              <FontAwesomeIcon name="user-plus" size={20} color="#fff" />
-              <Text style={style.actionButtonText}>Dodaj znajomego</Text>
-            </Pressable>
+            <InviteButton userId={userId} />
           </View>
         </View>
       </View>
@@ -81,6 +85,7 @@ const Header = ({background, avatar}: any): JSX.Element => {
 const style = StyleSheet.create({
   background: {
     height: 200,
+    width: '100%',
   },
 
   card: {

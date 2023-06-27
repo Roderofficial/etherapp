@@ -23,8 +23,21 @@ export default class TestHome extends React.Component<any, {token: string}> {
       <View>
         <Text>TestHome</Text>
         <Button
-          title="Go to Profile"
-          onPress={() => this.props.navigation.navigate('Profile')}
+          title="Go to Profile Bożydar"
+          onPress={() =>
+            this.props.navigation.navigate('Profile', {
+              userId: '648eff2181a26c6478cc320a',
+            })
+          }
+        />
+
+        <Button
+          title="Go to Profile Roder"
+          onPress={() =>
+            this.props.navigation.navigate('Profile', {
+              userId: '648ad0a10d69ee45746fe469',
+            })
+          }
         />
 
         <Button

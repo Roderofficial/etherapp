@@ -33,7 +33,7 @@ export default class LoginCode extends React.Component<
     if (response.ok) {
       const data = await response.json();
       await authService.setToken(data.token);
-      this.props.navigation.navigate('Tabs');
+      this.props.navigation.replace('Tabs');
     }
   };
 

@@ -1,5 +1,6 @@
 import {API_URL} from '../constans/config';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import {Alert} from 'react-native';
 
 class AuthService {
   async getCode(email: string): Promise<any> {
@@ -9,6 +10,9 @@ class AuthService {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({email}),
+    }).catch(error => {
+      console.log(error);
+      Alert.alert('Błąd', 'Wystąpił nieznany błąd');
     });
     return response;
   }

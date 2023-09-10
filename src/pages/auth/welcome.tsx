@@ -10,19 +10,29 @@ import {
 
 const WelcomeAuth = (props: any): JSX.Element => {
   return (
-    <View>
+    <View style={style.overlayContainer}>
+      <Image
+        source={require('../../assets/images/welcome2.png')}
+        style={style.welcomeImage}
+      />
       <View style={style.mainContainer}>
-        <View>
-          <Image
-            source={require('../../assets/images/auth_welcome.png')}
-            style={style.welcomeImage}
-          />
-        </View>
         <View style={{padding: 10}}>
-          <Text style={{fontSize: 30, color: '#fff', fontWeight: 'bold'}}>
+          <Text
+            style={{
+              fontSize: 30,
+              color: '#000',
+              fontWeight: 'bold',
+              marginBottom: 30,
+            }}>
             Witaj w Ether
           </Text>
-          <Text style={{fontSize: 18, color: '#fff', fontWeight: 'bold'}}>
+          <Text
+            style={{
+              fontSize: 18,
+              color: '#000',
+              fontWeight: '400',
+              fontFamily: 'Roboto',
+            }}>
             Aby korzystać z aplikacji musisz posiadać konto. Jeśli nie masz
             konta to możesz je założyć.
           </Text>
@@ -34,7 +44,7 @@ const WelcomeAuth = (props: any): JSX.Element => {
             }}
             style={({pressed}) => [
               {
-                backgroundColor: pressed ? '#e3e3e3' : '#fff',
+                backgroundColor: pressed ? '#045cbc' : '#045cbc',
               },
               style.loginButton,
             ]}>
@@ -42,25 +52,25 @@ const WelcomeAuth = (props: any): JSX.Element => {
           </Pressable>
 
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{flex: 1, height: 1, backgroundColor: '#fff'}} />
+            <View style={{flex: 1, height: 1, backgroundColor: '#000'}} />
             <View>
               <Text
                 style={{
                   width: 50,
                   textAlign: 'center',
-                  color: '#fff',
+                  color: '#000',
                   textTransform: 'uppercase',
                 }}>
                 LUB
               </Text>
             </View>
-            <View style={{flex: 1, height: 1, backgroundColor: '#fff'}} />
+            <View style={{flex: 1, height: 1, backgroundColor: '#000'}} />
           </View>
           <Pressable
             onPress={() => null}
             style={({pressed}) => [
               {
-                backgroundColor: pressed ? '#0d47a1' : '#033c9e',
+                backgroundColor: pressed ? '#e3e3e3' : '#fff',
               },
               style.registerButton,
             ]}>
@@ -73,47 +83,56 @@ const WelcomeAuth = (props: any): JSX.Element => {
 };
 
 const style = StyleSheet.create({
+  overlayContainer: {
+    backgroundColor: '#FBFBFB',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    minHeight: Dimensions.get('window').height,
+  },
   registerButton: {
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 14,
     width: Dimensions.get('window').width - 50,
     elevation: 2,
     marginTop: 10,
-    borderWidth: 2,
+
     borderColor: '#fff',
   },
   loginButton: {
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 14,
-    color: '#033c9e',
+    color: '#045cbc',
     marginBottom: 10,
     elevation: 2,
   },
   registerButtonText: {
     fontSize: 14,
-    color: '#fff',
+    color: '#000',
 
     alignSelf: 'center',
     textTransform: 'uppercase',
   },
   mainContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
-
-    height: '100%',
-    backgroundColor: '#033c9e',
+    justifyContent: 'flex-end',
+    backgroundColor: '#fff',
+    width: '100%',
+    paddingTop: 20,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
 
   loginButtonText: {
     fontSize: 14,
-    color: '#033c9e',
+    color: '#fff',
     textAlign: 'center',
     textTransform: 'uppercase',
   },
   welcomeImage: {
-    maxHeight: 200,
+    height: 300,
     padding: 10,
     resizeMode: 'contain',
+    width: '100%',
   },
 });
 

@@ -48,42 +48,53 @@ export default class LoginEmail extends React.Component<
   };
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding" style={style.mainContainer}>
-        <View style={{padding: 10, marginTop: 20}}>
-          <Text
-            style={{
-              fontSize: 30,
-              color: '#fff',
-              fontWeight: 'bold',
-              textAlign: 'center',
-            }}>
-            Logowanie
-          </Text>
-          <Text style={{fontSize: 18, color: '#fff', fontWeight: 'bold'}}>
-            Podaj swój adres e-mail
-          </Text>
-        </View>
+      <KeyboardAvoidingView behavior="height" style={style.mainContainer}>
+        <Image
+          source={require('../../../assets/images/Authentication-rafiki.png')}
+          style={style.headImage}
+        />
+        <View style={style.loginContainer}>
+          <View>
+            <Text
+              style={{
+                fontSize: 30,
+                color: '#000',
+                fontWeight: 'bold',
+              }}>
+              Logowanie
+            </Text>
+            <Text
+              style={{
+                fontSize: 18,
+                color: '#000',
+                fontWeight: '400',
+                marginBottom: 20,
+              }}>
+              Podaj swój adres e-mail
+            </Text>
+          </View>
 
-        <View style={{padding: 10}}>
-          <TextInput
-            style={style.emailInput}
-            placeholder="E-mail"
-            placeholderTextColor="#959595"
-            textContentType="emailAddress"
-            autoCapitalize="none"
-            onChange={e => this.setState({email: e.nativeEvent.text})}
-          />
+          <View style={{width: '100%'}}>
+            <TextInput
+              style={style.emailInput}
+              placeholder="E-mail"
+              placeholderTextColor="#959595"
+              textContentType="emailAddress"
+              autoCapitalize="none"
+              onChange={e => this.setState({email: e.nativeEvent.text})}
+            />
+          </View>
+          <Pressable
+            style={style.loginButton}
+            onPress={() => {
+              this.sendCode();
+            }}
+            disabled={this.state.buttonDisabled}>
+            <Text>
+              <Text style={style.loginButtonText}>Dalej</Text>
+            </Text>
+          </Pressable>
         </View>
-        <Pressable
-          style={style.loginButton}
-          onPress={() => {
-            this.sendCode();
-          }}
-          disabled={this.state.buttonDisabled}>
-          <Text>
-            <Text style={style.loginButtonText}>Dalej</Text>
-          </Text>
-        </Pressable>
       </KeyboardAvoidingView>
     );
   }
@@ -92,25 +103,36 @@ export default class LoginEmail extends React.Component<
 const style = StyleSheet.create({
   mainContainer: {
     minHeight: '100%',
-    backgroundColor: '#033c9e',
+    backgroundColor: '#FBFBFB',
     alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  loginContainer: {
+    alignItems: 'flex-start',
     justifyContent: 'center',
+    backgroundColor: '#fff',
+    width: '100%',
+    padding: 20,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    marginBottom: 20,
   },
   headImage: {
     padding: 10,
-    maxHeight: 200,
+    height: 300,
     resizeMode: 'contain',
+    width: '100%',
   },
   emailInput: {
     backgroundColor: '#fff',
     borderRadius: 5,
     padding: 14,
-    width: 300,
+    width: '100%',
     elevation: 2,
     marginTop: 10,
-    borderWidth: 2,
     borderColor: '#fff',
     color: '#000',
+    marginBottom: 20,
   },
   loginButton: {
     borderRadius: 5,
@@ -118,11 +140,14 @@ const style = StyleSheet.create({
     color: '#033c9e',
     marginBottom: 10,
     elevation: 2,
-    backgroundColor: '#fff',
+    backgroundColor: '#045cbc',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   loginButtonText: {
     fontSize: 14,
-    color: '#033c9e',
+    color: '#fff',
     textAlign: 'center',
     textTransform: 'uppercase',
     verticalAlign: 'middle',
